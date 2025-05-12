@@ -78,4 +78,20 @@ contract CrowdRaise {
     function getOwner() external view returns (address) {
         return i_owner;
     }
+
+    function getDeadline() external view returns (uint256) {
+        return i_deadline;
+    }
+
+    function getTotalFund() external view returns (uint256) {
+        return s_totalFunded;
+    }
+
+    function getFunder(uint256 index) external view returns (address) {
+        return s_funders[index];
+    }
+
+    function getAddressToAmountFunded(address fundingAddress) external view returns (uint256) {
+        return s_addressToAmountFunded[fundingAddress];
+    }
 }
