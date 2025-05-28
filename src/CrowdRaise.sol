@@ -7,6 +7,7 @@ import {PriceConverter} from "./PriceConverter.sol";
 error CrowdRaise__NotOwner();
 error CrowdRaise__GoalNotReached();
 error CrowdRaise__WithdrawFailed();
+error CrowdRaise__DeadlineNotReached();
 
 contract CrowdRaise {
     using PriceConverter for uint256;
@@ -52,7 +53,7 @@ contract CrowdRaise {
 
     function withdraw() public onlyOwner {
         uint256 funding = PriceConverter.getConversionRate(s_totalFunded, s_priceFeed);
-        require(block.timestamp > i_deadline, "Deadline not met!");
+        require(block.timestamp > i_deadline, CrowdRaise__DeadlineNotReached());
         if (funding <= i_usdGoal) {
             revert CrowdRaise__GoalNotReached();
         }
